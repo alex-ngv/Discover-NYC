@@ -1,0 +1,12 @@
+<h3>Post a Comment</h3>
+
+<%= form_for [ @article, @comment] do |f| %>
+    <%f.label session[:user_name] %>
+  <p>
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.submit 'Submit' %>
+  </p>
+<% end %>
+<%= %>

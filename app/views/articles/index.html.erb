@@ -1,0 +1,24 @@
+<h1><%= params[:category] %></h1>
+
+  <div class="row masonry-container">
+<% @articles.each do |article|%>
+  <div class="col-md-4 col-sm-6 item">
+    <div class="thumbnail thumbnail-inverse">
+        <% if article.image.exists? %>
+            <%= image_tag article.image.url%>
+        <% else %>
+            <%= image_tag 'categories/' + article.category + '.png'%>
+        <% end %></p>
+          <div class="caption">
+            <h3 title="<%=article.title%>"><%= article.title[0,15]%>
+            <% if article.title.length > 15 %>...<% end %></h3>
+            <p><%= article.body%></p>
+            <p>
+              <%= link_to "View", article_path(article), class:"btn btn-primary", role:"button" %>
+              <%= link_to "Like " + "(#{article.num_likes})", add_like_article_path(article), class: "btn btn-default add_like", role: "button", :remote => true %>
+            </p>
+          </div>
+      </div>
+  </div>
+<% end %>
+</div>

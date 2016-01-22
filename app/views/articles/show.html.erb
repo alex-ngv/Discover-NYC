@@ -1,0 +1,36 @@
+<h1> <%=  @article.title %></h1>
+<h4>By <%= User.find_by(@article.user_id)[:username] %></h4>
+<p>
+  <%= @article.body %>
+<br>
+  <% if @article.image.exists? %>
+      <%= image_tag @article.image.url %><br/>
+  <% end %></p>
+<br>
+
+  <%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x400&sensor=false&zoom=17&markers=#{@article.latitude}%2C#{@article.longitude}" %>
+
+<br>
+<% if session[:user_id] == @article.user_id %>
+  <%= link_to 'edit', edit_article_path(@article)%>
+  <%= link_to 'delete', article_path(@article), method: :delete %>
+<% end %>
+<p>
+  <%if @article.tags.any? %>Tags:<%end%>
+  <% @article.tags.each do |tag| %>
+    <%= link_to tag.name, tag_path(tag) %>
+  <% end %>
+</p>
+<h3>Nearby locations</h3>
+<ul>
+<% for article in @nearbys %>
+  <li><%= link_to article.address, article %> (<%= article.distance.round(1) %> miles)</li>
+<% end %>
+</ul>
+<h3>Comments(<%=@article.comments.length%>)</h3>
+<%= render partial: 'articles/comment', collection: @article.comments %>
+  <% if @nearbys != nil %>
+<% end%>
+
+<%= render partial: 'comments/form' %>
+<%= link_to 'Back to the list', articles_path %>

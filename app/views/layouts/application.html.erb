@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Places</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => 'false'%>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div id="main-container" class="container">
+  <%= render 'shared/navigation' %>
+  <div class="row">
+    <div class="col-xs-3">
+      <p class="flash"><%= flash.notice %></p>
+      <h3>Title</h3>
+      <%= link_to "Create a New Article", new_article_path, class: 'new_article' %>
+      <br /><br /><br />
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <%=render 'shared/tags'%>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-9">
+      <%= render 'shared/tabs' %>
+      <%= yield %>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

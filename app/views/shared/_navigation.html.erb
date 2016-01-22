@@ -1,0 +1,26 @@
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <div class="title">
+      <h1>Discover NYC</h1>
+    </div>
+    <% if session[:user_id] != nil %>
+    <div class='login'>
+      <div class="btn-group inline pull-right">
+        <%= button_to "Log Out", '/sessions', method: :delete, class: "btn btn-default"%>
+      </div>
+        <p id='test' class="inline">You're logged in as <%= session[:user_name]%></p>
+    </div>
+    <% else %>
+    <div class='login'>
+    <%= bootstrap_form_tag url: '/sessions' ,layout: :inline do |f| %>
+      <%= f.text_field :username, skip_label: true %>
+      <%= f.password_field :password, hide_label: true%>
+      <%= f.submit %>
+      <p><%= link_to "Create a new account", 'users/new' %></p>
+    <% end %>
+    </div>
+  <% end %>
+
+</div>
+</nav>
+<br>
